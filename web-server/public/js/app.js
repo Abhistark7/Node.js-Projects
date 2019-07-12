@@ -1,6 +1,6 @@
 console.log('Client side javascipt has been loaded!')
 
-const weatherFetchUrl = 'http://localhost:3000/weather?address='
+const weatherFetchUrl = '/weather?address='
 const weatherForm = document.querySelector('form')
 const search = document.querySelector('input')
 const message1 = document.querySelector('#message-1')
