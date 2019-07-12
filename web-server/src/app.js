@@ -31,7 +31,7 @@ app.get('', (req, res) => {
 app.get('/help', (req, res) => {
     res.render('help', {
         title: 'Help Section',
-        name: 'If you need any help, just tell me, alright?',
+        helpText: 'If you need any help, just tell me, alright?',
         authorName: 'Abhishek Sahu'
     })
 })
@@ -39,7 +39,7 @@ app.get('/help', (req, res) => {
 app.get('/about', (req, res) => {
     res.render('about', {
         title: 'About Page',
-        name: 'Abhishek Sahu',
+        name: 'High on node.js',
         authorName: 'Abhishek Sahu'
     })
 })
@@ -51,7 +51,7 @@ app.get('/weather', (req, res) => {
         })
     }
 
-    geocode(req.query.address, (error, { latitude, longitude, place_name }) => {
+    geocode(req.query.address, (error, { latitude, longitude, location } = {}) => {
         if (error) {
             return res.send({ error })
         }
@@ -61,7 +61,7 @@ app.get('/weather', (req, res) => {
             }
             res.send({
                 forecast: forecastData,
-                location: place_name,
+                location,
                 address: req.query.address
             })
         })
