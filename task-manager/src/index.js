@@ -1,13 +1,19 @@
 const express = require('express')
+const mongoose = require('./db/mongoose')
 
 const app = express()
 const port = process.env.PORT || 3000
 
-app.use(express.json)
+// used to parse incoming request to json
+app.use(express.json())
 
 app.post('/users', (req, res) => {
-    console.log(res.body)
-    res.send('testing...')
+    console.log('Saving... ', req.body)
+    mongoose.addNewUser(req.body)
+})
+
+app.get('', (req, res) => {
+    res.send('Its working...')
 })
 
 app.listen(port, () => {

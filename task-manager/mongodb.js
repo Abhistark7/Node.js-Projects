@@ -39,10 +39,20 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
     //     console.log(result)
     // })
 
-    db.collection('tasks').deleteOne({ completed: false }).then((result) => {
-        console.log('Deleted succesfully')
-    }).catch((result) => {
-        console.log('Cannot delete!')
-    })
+    // db.collection('tasks').deleteOne({ completed: false }).then((result) => {
+    //     console.log('Deleted succesfully')
+    // }).catch((result) => {
+    //     console.log('Cannot delete!')
+    // })
+
+    const addUser = (newUser) => {
+        db.collection('users').insertOne(newUser).then((result) => {
+            console.log('User added ', result)
+        }).catch((result) => {
+            console.log('Error ', result)
+        })
+    }
 
 })
+
+module.exports = addUser
