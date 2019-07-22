@@ -17,33 +17,33 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
 
     const db = client.db(databaseName)
 
-    // db.collection('users').updateOne({
-    //     _id: new ObjectId('5d28aded8bd5880ba155987d')
-    // }, {
-    //     $inc: {
-    //         age: 3
-    //     }
-    // }).then((result) => {
-    //     console.log(result)
-    // }).catch((result) => {
-    //     console.log(result)
-    // })
+    db.collection('users').updateOne({
+        _id: new ObjectId('5d28aded8bd5880ba155987d')
+    }, {
+        $inc: {
+            age: 3
+        }
+    }).then((result) => {
+        console.log(result)
+    }).catch((result) => {
+        console.log(result)
+    })
 
-    // db.collection('tasks').updateMany({ completed: true }, {
-    //     $set: {
-    //         completed: false
-    //     }
-    // }).then((result) => {
-    //     console.log(result)
-    // }).catch((result) => {
-    //     console.log(result)
-    // })
+    db.collection('tasks').updateMany({ completed: true }, {
+        $set: {
+            completed: false
+        }
+    }).then((result) => {
+        console.log(result)
+    }).catch((result) => {
+        console.log(result)
+    })
 
-    // db.collection('tasks').deleteOne({ completed: false }).then((result) => {
-    //     console.log('Deleted succesfully')
-    // }).catch((result) => {
-    //     console.log('Cannot delete!')
-    // })
+    db.collection('tasks').deleteOne({ completed: false }).then((result) => {
+        console.log('Deleted succesfully')
+    }).catch((result) => {
+        console.log('Cannot delete!')
+    })
 
     const addUser = (newUser) => {
         db.collection('users').insertOne(newUser).then((result) => {

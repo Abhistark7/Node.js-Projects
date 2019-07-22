@@ -1,33 +1,11 @@
 const mongoose = require('mongoose')
-const User = require('./models/user')
-const Task = require('./models/task')
+const User = require('../models/user')
+const Task = require('../models/task')
 
 mongoose.connect('mongodb://127.0.0.1:27017/task-manager-api', {
     useNewUrlParser: true,
     useCreateIndex: true
 })
-
-// const me = new User({
-//     name: 'Mike',
-//     email: 'mike@gmail.com    ',
-//     password: 'kettlefry'
-// })
-
-// const task1 = new Task({
-//     description: 'Resume edit',
-// })
-
-// task1.save().then((result) => {
-//     console.log(result)
-// }).catch((result) => {
-//     console.log('Error', result)
-// })
-
-// me.save().then((result) => {
-//     console.log(result)
-// }).catch((result) => {
-//     console.log('Error', result)
-// })
 
 const addNewUser = (user, callback) => {
     const newUser = new User({
@@ -42,6 +20,21 @@ const addNewUser = (user, callback) => {
     })
 }
 
+const addNewTask = (task) => {
+    return new Promise((res, rej) => {
+        const newTask = new Task({
+            description: task.name,
+            completed: task.isCompleted
+        })
+        newTask.save().then((result) => {
+            res(result)
+        }).catch((error) => {
+            rej(error)
+        })
+    })
+}
+
 module.exports = {
-    addNewUser: addNewUser
+    addNewUser: addNewUser,
+    addNewTask: addNewTask
 }

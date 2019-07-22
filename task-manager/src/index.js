@@ -1,5 +1,5 @@
 const express = require('express')
-const mongoose = require('./db/mongoose')
+const mongoose = require('./db/mongoose.js')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -12,8 +12,13 @@ app.post('/users', (req, res) => {
     mongoose.addNewUser(req.body)
 })
 
-app.get('', (req, res) => {
-    res.send('Its working...')
+app.post('/saveTask', (req, res) => {
+    console.log('Saving task... ', req.body)
+    mongoose.addNewTask(req.body).then((result) => {
+        res.status(200).send(result)
+    }).catch((error) => {
+        res.status(400).send(error)
+    })
 })
 
 app.listen(port, () => {
