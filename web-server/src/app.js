@@ -56,29 +56,18 @@ app.get('/weather', (req, res) => {
         if (error) {
             return res.send({ error })
         }
-        forecast(latitude, longitude, (error, forecastData) => {
+        forecast(latitude, longitude, (error, forecastData, uvIndex, visibility) => {
             if (error) {
                 return res.send({ error })
             }
             res.send({
                 forecast: forecastData,
                 location,
-                address: req.query.address
+                address: req.query.address,
+                uvIndex,
+                visibility
             })
         })
-    })
-})
-
-app.get('/products', (req, res) => {
-    if (!req.query.search) {
-        return res.send({
-            error: 'You must provide a search term'
-        })
-    }
-
-    console.log(req.query.search)
-    res.send({
-        products: []
     })
 })
 
