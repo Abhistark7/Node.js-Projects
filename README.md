@@ -7,3 +7,7 @@ Using the following npm libraries -
 # validator
 # chalk
 # yargs
+# jsonwebtoken
+# bcryptjs
+# multer
+# sharp

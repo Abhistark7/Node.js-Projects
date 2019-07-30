@@ -3,6 +3,7 @@ const User = require('../models/user')
 const auth = require('../middleware/auth')
 const multer = require('multer')
 const sharp = require('sharp')
+const { sendWelcomeEmail, sendCancelEmail } = require('../emails/account')
 const router = new express.Router()
 
 // Upload user avatar configuration
@@ -56,13 +57,13 @@ router.get('/users/:id/avatar', async(req, res) => {
 
 // Create a new user
 router.post('/users', async(req, res) => {
-    console.log('Saving... ', req.body)
-    const user = new User({ name: req.body.name, age: req.body.age, email: req.body.email, password: req.body.password })
+    const user = new User(req.body)
     try {
+        await user.save()
+        sendWelcomeEmail(user.email, user.name)
         const token = await user.generateAuthToken()
-        res.send({ token, user })
+        res.status(201).send({ token, user })
     } catch (e) {
-        console.log(e)
         res.status(400).send(e)
     }
 })
@@ -132,6 +133,7 @@ router.patch('/users/me', auth, async(req, res) => {
 router.delete('/users/me', auth, async(req, res) => {
     try {
         await req.user.remove()
+        sendCancelEmail(req.user.email, req.user.name)
         res.send(req.user)
     } catch (e) {
         res.status(400).send()

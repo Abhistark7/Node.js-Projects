@@ -6,6 +6,7 @@ const add = (a, b) => {
     })
 }
 
+// Promise chaining example
 add(1, 2).then((sum) => {
     console.log(sum)
     return add(sum, 5)
